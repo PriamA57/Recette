@@ -1,24 +1,40 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Nouvelle recettes</title>
+    <title>Recette</title>
 </head>
 <body>
-<h1>Nouvelle recettes</h1>
-<form th:action="@{/recettes}" th:object="${recette}" method="post">
-    <p>Titre : <input type="text" th:field="*{titre}"></p>
-    <p>Description : <input type="text" th:field="*{description}" required></p>
-    <p>Temps : <input type="text" th:field="*{temps}"></p>
-    <p>Difficulté : <input type="text" th:field="*{difficulte}"></p>
-    <p>Pour combien de personne : <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-    </select>
+<h1>Recette</h1>
+
+<form th:action="@{/recettes/enregistrer}" th:object="${recette}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <p>
+        <label>Titre :</label><br>
+        <input type="text" th:field="*{titre}" required/>
+    </p>
+    <p>
+        <label>Description :</label><br>
+        <textarea th:field="*{description}" rows="4" cols="40"></textarea>
+    </p>
+    <p>
+        <label>Difficulté :</label><br>
+        <select th:field="*{difficulte}">
+            <option value="Facile">Facile</option>
+            <option value="Moyen">Moyen</option>
+            <option value="Difficile">Difficile</option>
+        </select>
+    </p>
+    <p>
+        <label>Nombre de personnes :</label><br>
+        <input type="number" th:field="*{nbPersonnes}" min="1"/>
+    </p>
+    <p>
+        <label>Temps (minutes) :</label><br>
+        <input type="number" th:field="*{temps}" min="0"/>
+    </p>
+
     <button type="submit">Enregistrer</button>
     <a th:href="@{/recettes}">Annuler</a>
 </form>

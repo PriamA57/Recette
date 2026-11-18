@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingrédients</title>
+</head>
+<body>
+<h1>Catalogue des ingrédients</h1>
+
+<a th:href="@{/ingredients/ajouter}">+ Ajouter un ingrédient</a> |
+<a th:href="@{/recettes}">Retour aux recettes</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="i : ${ingredients}">
+        <td th:text="${i.nom}"></td>
+        <td>
+            <a th:href="@{/ingredients/modifier/{id}(id=${i.id})}">Modifier</a>
+            <form th:action="@{/ingredients/supprimer/{id}(id=${i.id})}" method="post" style="display:inline">
+                <button type="submit">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(ingredients)}">
+        <td colspan="2">Aucun ingrédient.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
